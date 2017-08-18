@@ -11,8 +11,27 @@ namespace CinemaDataBaseLibrary.Model
 {
     [Table("Films")]
     public class Film : BaseModel
-    { 
-        public int FilmId { set; get; }
+    {
+        [NotMapped]
+        int filmId;
+        [NotMapped]
+        string filmName;
+        [NotMapped]
+        int filmYear;
+        [NotMapped]
+        float rating;
+        [NotMapped]
+        string description;
+        [NotMapped]
+        string filmPhotoFileName;
+        [NotMapped]
+        byte[] filmPhotoData;
+        [NotMapped]
+        Director directorId;
+        [NotMapped]
+        Genre genreId;
+
+        public int FilmId { set { filmId = value; Notify(); } get { return filmId; } }
         public string FilmName { set; get; }
         public int FilmYear { set; get; }
         public float Rating { set; get; }
