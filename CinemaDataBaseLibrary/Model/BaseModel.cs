@@ -8,14 +8,14 @@ using System.Threading.Tasks;
 
 namespace CinemaDataBaseLibrary.Model
 {
-    public class BaseModel //: INotifyPropertyChanged
+    public class BaseModel : INotifyPropertyChanged
     {
-        //public event PropertyChangedEventHandler PropertyChanged;
+        public event PropertyChangedEventHandler PropertyChanged;
 
-        //public void Notify([CallerMemberName]string path = "")
-        //{
-        //    if (PropertyChanged != null)
-        //        PropertyChanged(this, new PropertyChangedEventArgs(path));
-       // }
+        public void Notify([CallerMemberName]string path = "")
+        {
+            if (PropertyChanged != null)
+                PropertyChanged(this, new PropertyChangedEventArgs(path));
+        }
     }
 }
