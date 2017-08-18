@@ -1,0 +1,213 @@
+﻿<Controls:MetroWindow x:Class="Cinema_Entity_1._0.View.SettingsWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+        xmlns:local="clr-namespace:Cinema_Entity_1._0.View"
+        mc:Ignorable="d"
+                      WindowStartupLocation="CenterScreen"
+        Title="SetingsWindow" Height="500" Width="600"
+        BorderBrush="{DynamicResource AccentColorBrush}"
+                      BorderThickness="1">
+
+    <Controls:MetroWindow.Resources>
+        <Style BasedOn="{StaticResource MetroButton}" TargetType="Button">
+            <Setter Property="Margin" Value="5"></Setter>
+        </Style>
+        <Style BasedOn="{StaticResource MetroListBox}" TargetType="ListBox">
+            <Setter Property="Margin" Value="5"></Setter>
+        </Style>
+    </Controls:MetroWindow.Resources>
+
+    <Grid>
+        
+        <TabControl>
+            <TabItem Header="Фильмы"  >
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="12*" />
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+
+                    <ListBox ItemsSource="{Binding Films}" SelectedItem="{Binding SelectedFilm}" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <Border Margin="1" BorderThickness="2" BorderBrush="Gray" CornerRadius="2">
+                                    <Grid Margin="0">
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition />
+                                            <RowDefinition />
+                                            <RowDefinition/>
+                                        </Grid.RowDefinitions>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="2*"></ColumnDefinition>
+                                            <ColumnDefinition Width="6*"/>
+                                        </Grid.ColumnDefinitions>
+                                        <Image Grid.RowSpan="2" MaxWidth="100" MaxHeight="120" 
+                                   Source="{Binding FilmPhotoFileName}"></Image>
+                                        <StackPanel Grid.Column="1">
+                                            <Grid Margin="3">
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="3*"/>
+                                                    <ColumnDefinition/>
+                                                    <ColumnDefinition/>
+
+                                                </Grid.ColumnDefinitions>
+                                                <TextBlock FontWeight="Bold" Text="{Binding FilmName , UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"></TextBlock>
+                                                <TextBlock FontWeight="Bold" Grid.Column="1" Text="{Binding FilmYear , UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"></TextBlock>
+                                                <TextBlock FontWeight="Bold" Grid.Column="2" HorizontalAlignment="Right"  Text="{Binding Rating , UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"></TextBlock>
+                                            </Grid>
+                                            <WrapPanel>
+                                                <Label HorizontalAlignment="Left" VerticalAlignment="Center" FontWeight="Bold" Content="Режисер:"></Label>
+                                                <TextBlock VerticalAlignment="Center"  Text="{Binding DirectorId.DirectorName , UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"></TextBlock>
+                                            </WrapPanel>
+                                            <WrapPanel>
+                                                <Label VerticalAlignment="Center" Content="Жанр:" FontWeight="Bold"></Label>
+                                                <TextBlock VerticalAlignment="Center"  Text="{Binding GenreId.GenreName , UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"></TextBlock>
+                                            </WrapPanel>
+
+                                        </StackPanel>
+                                        <ScrollViewer Grid.Column="1" MaxHeight="100"
+                                       Grid.Row="1" VerticalScrollBarVisibility="Visible">
+                                            <TextBlock    
+                                       TextWrapping="Wrap"   HorizontalAlignment="Left" 
+                                       Text="{Binding Description , UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"></TextBlock>
+                                        </ScrollViewer>
+                                    </Grid>
+                                </Border>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+
+                    <WrapPanel Grid.Row="1" HorizontalAlignment="Right">
+                        <Button Margin="2" Command="{Binding EditFilm}" CommandParameter="{Binding SelectedFilm}">Редактировать</Button>
+                        <Button Margin="2" Command="{Binding DelFilm}" CommandParameter="{Binding SelectedFilm}">Удалить</Button>
+                        <Button Margin="2" Command="{Binding AddFilm}">Добавить</Button>
+                    </WrapPanel>
+                </Grid>
+            </TabItem>
+            <TabItem Header="Кинозалы">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                    </Grid.RowDefinitions>
+                <ListBox ItemsSource="{Binding Rooms}" SelectedItem="{Binding SelectedRoom}" >
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition></ColumnDefinition>
+                                    <ColumnDefinition></ColumnDefinition>
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition></RowDefinition>
+                                    <RowDefinition></RowDefinition>
+                                    
+                                </Grid.RowDefinitions>
+                                <Label Content="{Binding RoomName}"></Label>
+                            </Grid>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+                    <WrapPanel  Grid.Row="1" HorizontalAlignment="Right">
+                        <Button Command="{Binding AddRoom}" >Добавить</Button>
+                        <Button>Редактировать</Button>
+                        <Button>Удалить</Button>
+                    </WrapPanel>
+                </Grid>
+            </TabItem>
+            <TabItem Header="Сеансы">
+                <StackPanel>
+                <ComboBox Margin="5" ItemsSource="{Binding Films}" SelectedItem="{Binding SelectedFilm}">
+                    <ComboBox.ItemTemplate>
+                        <DataTemplate>
+                                <TextBlock FontWeight="Bold" Text="{Binding FilmName}"></TextBlock>
+                            </DataTemplate>
+                    </ComboBox.ItemTemplate>
+                </ComboBox>
+                    <ListBox ItemsSource="{Binding Sessions}" SelectedItem="{Binding SelectedSession}" Margin="5">
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <WrapPanel>
+                                    <Label Content="{Binding SessionTime}"></Label>
+                                    <Label Content="{Binding SessionRoom.RoomName}"></Label>
+                                </WrapPanel>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+                    
+                    <Button Command="{Binding AddSession}">add</Button>
+                </StackPanel>
+            </TabItem>
+            <TabItem Header="Жанры/Режиссеры">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition Width="2*"/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition MaxHeight="40" />
+                        <RowDefinition MaxHeight="40"/>
+                        <RowDefinition MaxHeight="40"/>
+                        <RowDefinition MaxHeight="40"/>
+                        <RowDefinition />
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <Label Grid.RowSpan="2" Content="Жанр:" FontSize="20" 
+                           VerticalAlignment="Center" 
+                           HorizontalAlignment="Center"></Label>
+                    <ComboBox Margin="5" Grid.Column="1" 
+                              ItemsSource="{Binding Genre}" 
+                              SelectedItem="{Binding SelectedGenre}">
+                        <ComboBox.ItemTemplate>
+                            <DataTemplate>
+                                <Label Content="{Binding GenreName}" FontSize="11"></Label>
+                            </DataTemplate>
+                        </ComboBox.ItemTemplate>
+                    </ComboBox>
+                    <Button Grid.Row="0" Grid.Column="2" 
+                            Command="{Binding DelGenre}" 
+                            CommandParameter="{Binding SelectedGenre}"
+                            Content="Удалить" FontSize="12" 
+                            Margin="5"></Button>
+                    <Button Grid.Row="1" Grid.Column="2" 
+                            Command="{Binding AddGenre}" 
+                            CommandParameter="{Binding ElementName=genreToAdd, Path=Text}"
+                            Content="Добавить" FontSize="12" 
+                            Margin="5"></Button>
+                    <TextBox Grid.Column="1" Grid.Row="1" Margin="5" Name="genreToAdd" FontSize="11"></TextBox>
+                    <Label Content="Режиссер:" FontSize="20" 
+                           VerticalAlignment="Center" 
+                           HorizontalAlignment="Center" 
+                           Grid.Row="2" Grid.RowSpan="2"></Label>
+                    <ComboBox Margin="5" Grid.Column="1" Grid.Row="2"
+                              ItemsSource="{Binding Director}" 
+                              SelectedItem="{Binding SelectedDirector}">
+                        <ComboBox.ItemTemplate>
+                            <DataTemplate>
+                                <Label Content="{Binding DirectorName}" FontSize="11"></Label>
+                            </DataTemplate>
+                        </ComboBox.ItemTemplate>
+                    </ComboBox>
+                    <Button Grid.Row="2" Grid.Column="2" 
+                            Command="{Binding DelDirector}" 
+                            CommandParameter="{Binding SelectedDirector}"
+                            Content="Удалить" FontSize="12" 
+                            Margin="5"></Button>
+                    <Button Grid.Row="3" Grid.Column="2" 
+                            Command="{Binding AddDirector}" 
+                            CommandParameter="{Binding ElementName=directorToAdd, Path=Text}"
+                            Content="Добавить" FontSize="12" 
+                            Margin="5"></Button>
+                    <TextBox Grid.Column="1" Grid.Row="3" Margin="5" Name="directorToAdd" FontSize="11"></TextBox>
+                    
+                </Grid>
+            </TabItem>
+        </TabControl>
+    </Grid>
+</Controls:MetroWindow>

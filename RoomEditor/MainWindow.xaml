@@ -1,0 +1,54 @@
+﻿<Controls:MetroWindow x:Class="RoomEditor.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+        xmlns:local="clr-namespace:RoomEditor"
+        mc:Ignorable="d"
+                      
+        Title="Room Editor" Height="350" Width="525"
+                      SaveWindowPosition="True"
+                      WindowStartupLocation="CenterScreen"
+                      BorderBrush="{DynamicResource AccentColorBrush}"
+                      BorderThickness="1"
+                      ResizeMode="CanResizeWithGrip">
+    <Controls:MetroWindow.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Controls.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Fonts.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Colors.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/Red.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/BaseDark.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Controls:MetroWindow.Resources>
+    <Grid  >
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1*"></ColumnDefinition>
+            <ColumnDefinition Width="4*"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <StackPanel>
+            <Grid Margin="3">
+                <Grid.RowDefinitions >
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition>
+                    </ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Label HorizontalAlignment="Left">Рядов</Label>
+                <Controls:NumericUpDown Grid.Column="1" Value="{Binding Room.Rows}" Name="RowsNum"  HorizontalAlignment="Left" Height="25" Minimum="1" Maximum="100" Margin="3" />
+                <Label Grid.Row="1" HorizontalAlignment="Left">Мест</Label>
+                <Controls:NumericUpDown Grid.Row="1" Grid.Column="1" Value="{Binding Room.Columns}" Name="ColumnsNum"  HorizontalAlignment="Left" Height="25" Minimum="1" Maximum="100" Margin="3"/>
+            </Grid>
+            <Button Margin="3 10" Name="Make_Room" Command="{Binding Do_Grid}"  Content="Посторить зал"></Button>
+            <Button Margin="3 10" Name="Save_button" Command="{Binding Save_File}"  Content="СОХРАНИТЬ"></Button>
+
+        </StackPanel>
+        <ContentControl Grid.Column="1" Content="{Binding EL}"></ContentControl>
+    </Grid>
+</Controls:MetroWindow>

@@ -1,0 +1,81 @@
+﻿<Controls:MetroWindow x:Class="Cinema_Entity_1._0.View.AddEditFilmWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+        xmlns:local="clr-namespace:Cinema_Entity_1._0.View"
+        mc:Ignorable="d"
+        Title="AddEditFilmWindow" Height="400" Width="350"
+        BorderBrush="{DynamicResource AccentColorBrush}"
+        BorderThickness="1"
+                      ResizeMode="NoResize"
+        WindowStartupLocation="CenterScreen"
+                      Name="filmWindow"
+        >
+    <Grid Margin="10">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition Width="3*" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Label VerticalAlignment="Center" >Название</Label>
+        <TextBox Margin="5" Name="filmName" Grid.Column="1" 
+                 Text="{Binding SelectedFilm.FilmName, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" ></TextBox>
+        <Label VerticalAlignment="Center" Grid.Row="1">Год</Label>
+        <Controls:NumericUpDown Value="{Binding SelectedFilm.FilmYear, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" 
+                                Grid.Column="1" Grid.Row="1" Margin="5" Maximum="2050" 
+                                Minimum="1900"  ></Controls:NumericUpDown>
+        <Label VerticalAlignment="Center" Grid.Row="2">Год</Label>
+        <Controls:NumericUpDown Value="{Binding SelectedFilm.Rating, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" 
+                                Grid.Column="1" Grid.Row="2" Margin="5" Maximum="10" Interval="0.1" 
+                                Minimum="1" StringFormat="F2" />
+        <Label VerticalAlignment="Center" Grid.Row="3">Режиссер</Label>
+        <ComboBox Margin="5" Grid.Column="1" Grid.Row="3"
+                              ItemsSource="{Binding Director}" 
+                              SelectedItem="{Binding SelectedDirector}">
+            <ComboBox.ItemTemplate>
+                <DataTemplate>
+                    <Label Content="{Binding DirectorName}" FontSize="11"></Label>
+                </DataTemplate>
+            </ComboBox.ItemTemplate>
+        </ComboBox>
+        <Label VerticalAlignment="Center" Grid.Row="4">Жанр</Label>
+        <ComboBox Margin="5" Grid.Column="1" Grid.Row="4" 
+                              ItemsSource="{Binding Genre}" 
+                              SelectedItem="{Binding SelectedGenre}">
+            <ComboBox.ItemTemplate>
+                <DataTemplate>
+                    <Label Content="{Binding GenreName}" FontSize="11"></Label>
+                </DataTemplate>
+            </ComboBox.ItemTemplate>
+        </ComboBox>
+        <Label VerticalAlignment="Center" Grid.Row="5">Фото</Label>
+        <WrapPanel VerticalAlignment="Center" HorizontalAlignment="Right" Grid.Row="5" Grid.Column="1">
+            <TextBox MinWidth="150" Text="{Binding SelectedFilm.FilmPhotoFileName, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Width="215" ></TextBox>
+            <Button Command="{Binding OpenFile}" >...</Button>
+        </WrapPanel>
+        <Label VerticalAlignment="Center" Grid.Row="6">Описание</Label>
+        <TextBox Grid.Column="1" Grid.Row="6" Margin="5" 
+                 Grid.RowSpan="2" 
+                 Text="{Binding SelectedFilm.Description, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" 
+                 ScrollViewer.VerticalScrollBarVisibility="Visible"
+                 TextWrapping="Wrap"></TextBox>
+
+        <WrapPanel VerticalAlignment="Center" Margin="2" HorizontalAlignment="Right" Grid.Row="8" Grid.Column="1">
+            <Button Command="{Binding Save}" CommandParameter="{Binding ElementName=filmWindow}" >Сохранить</Button>
+            <Button IsCancel="True">Выйти</Button>
+        </WrapPanel>
+
+    </Grid>
+</Controls:MetroWindow>
